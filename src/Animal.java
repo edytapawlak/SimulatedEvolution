@@ -1,4 +1,6 @@
-import java.util.concurrent.ThreadLocalRandom;
+import java.lang.reflect.Array;
+import java.util.Arrays;
+import java.util.Random;
 
 /**
  * Created by szpirala on 18.05.17.
@@ -7,32 +9,69 @@ public class Animal {
 
     private int x;
     private int y;
-    private int direction;
     private int age;
-    private Animal[] chilrens;
-    private int energy = 100;
+//    private Animal[] chilrens;
+    private int energy;
     /**
-     * 8 genów odpowiadających za kierunek i szybkość?
+     * 8 genów odpowiadających za kierunek
      */
     private int[] gens;
+    private int kanibalGen;
     private int howManyChild;
 
-    public Animal(int[] gens){
+    public Animal(int x, int y, int energy, int[] gens, int kanibalGen){
         this.gens = gens;
-    }
-
-    public Animal(int x, int y){
-        gens = new int[8];
-        for (int i = 0; i < gens.length; i++) {
-            gens[i] = ThreadLocalRandom.current().nextInt(0, 10 + 1);
-        }
         this.x = x;
         this.y = y;
+        this.age = 0;
+        this.energy = energy;
+        this.kanibalGen = kanibalGen;
+    }
+
+    public Animal(int x, int y, int energy){
+        Random rand = new Random();
+        gens = new int[8];
+        for (int i = 0; i < gens.length; i++) {
+//            gens[i] = ThreadLocalRandom.current().nextInt(0, 10 + 1);
+            gens[i] = rand.nextInt(11);
+        }
+        this.kanibalGen = rand.nextInt(11);
+        this.x = x;
+        this.y = y;
+        this.age = 0;
+        this.energy = energy;
     }
 
     public void eat(int energy){
         this.energy += energy;
-        System.out.println(this.energy);
+    }
+
+    public Animal reproduce(){
+        int[] chldrenGenes;
+        if(energy > 200){
+            chldrenGenes = new int[8];
+            for (int i = 0; i < this.gens.length; i++) {
+                chldrenGenes[i] = this.gens[i];
+            }
+            Random rand = new Random();
+//            int randomIndex = ThreadLocalRandom.current().nextInt(0, 8);
+//            int random = ThreadLocalRandom.current().nextInt(0, 3);
+            int randomIndex = rand.nextInt(8);
+            int random = rand.nextInt(3);
+            chldrenGenes[randomIndex] = Math.max(1, this.gens[randomIndex] + random - 1);
+            int childCanibalGen = this.kanibalGen + rand.nextInt(3) - 1;
+            this.energy = (int) (this.energy / 2);
+            return new Animal(this.getX(), this.getY(), this.energy, chldrenGenes, childCanibalGen);
+        }
+        return null;
+    }
+
+    public void bit(Animal animal){
+        if(this.energy < 30) {
+            int bitedEnergy = Math.min(animal.getEnergy(), kanibalGen * 10);
+            this.energy += bitedEnergy;
+            animal.decreaseEnergy(bitedEnergy);
+        }
     }
 
     /**
@@ -51,7 +90,9 @@ public class Animal {
                 gens) {
             sum += g;
         }
-        int random = ThreadLocalRandom.current().nextInt(0, sum + 1);
+        Random rand = new Random();
+//        int random = ThreadLocalRandom.current().nextInt(0, sum + 1);
+        int random = rand.nextInt(sum + 1);
         int partSum = 0;
         int i = 0;
         while (partSum < random){
@@ -128,10 +169,6 @@ public class Animal {
         this.y = (this.y + 1) % height;
     }
 
-    public void reproduce(){
-        this.chilrens = new Animal[gens.length - 1];
-    }
-
     public int getX() {
         return x;
     }
@@ -139,4 +176,17 @@ public class Animal {
     public int getY() {
         return y;
     }
+
+    public void decreaseEnergy(int value){
+        energy -= value;
+    }
+
+    public int getEnergy() {
+        return energy;
+    }
+
+    public int[] getGens() {
+        return gens;
+    }
+
 }

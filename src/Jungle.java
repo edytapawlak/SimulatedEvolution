@@ -1,4 +1,4 @@
-import java.util.concurrent.ThreadLocalRandom;
+import java.util.Random;
 
 /**
  * Created by szpirala on 20.05.17.
@@ -21,7 +21,9 @@ public class Jungle {
     }
 
     public Plant randomPlant(){
-        int randomRarius = ThreadLocalRandom.current().nextInt(0, radius + 1);
+//        int randomRarius = ThreadLocalRandom.current().nextInt(0, radius + 1);
+        Random rand = new Random();
+        int randomRarius = rand.nextInt(radius + 1);
         double randomAngle = Math.random() * 2 * Math.PI;
 
         int plantX = (int)(randomRarius * Math.cos(randomAngle)) + this.x;

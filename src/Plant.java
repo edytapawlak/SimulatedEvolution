@@ -11,7 +11,7 @@ public class Plant {
         this.x = x;
         this.y = y;
         this.energy = 60;
-        this.height = 3;
+        this.height = 1;
     }
 
     public int getX() {
