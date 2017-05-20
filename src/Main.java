@@ -36,6 +36,8 @@ public class Main extends PApplet{
 //        plot.drawPlot(100, 500);
         world.drawPlants();
         world.addPlants();
+        world.drawAnimals();
+        world.moveAnimals();
 
     }
 
