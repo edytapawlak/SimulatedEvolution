@@ -23,12 +23,12 @@ public class GensPlot {
         this.height = height;
     }
 
-    public void drawPlot(){
+    public void drawPlot(float leftBottomX, float leftBottomY){
         float wid = (this.width - 10)/gensPopulation.length;
             float color = context.random(255);
         for (int i = 0; i < gensPopulation.length; i++) {
             context.fill(0, color * (i + 1), 0);
-            context.rect(5 + i * wid, this.width - gensPopulation[i], wid, gensPopulation[i]);
+            context.rect(leftBottomX + i * wid, leftBottomY - gensPopulation[i], wid, gensPopulation[i]);
         }
     }
 
