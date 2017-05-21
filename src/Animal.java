@@ -91,7 +91,6 @@ public class Animal {
             sum += g;
         }
         Random rand = new Random();
-//        int random = ThreadLocalRandom.current().nextInt(0, sum + 1);
         int random = rand.nextInt(sum + 1);
         int partSum = 0;
         int i = 0;
@@ -151,22 +150,22 @@ public class Animal {
 
     private void moveEN(int width, int height){
         this.x = (this.x + 1) % width;
-        this.y = (this.y +1) % height;
+        this.y = (this.y - 1) % height;
     }
 
     private void moveES(int width, int height){
         this.x = (this.x + 1) % width;
-        this.y = (this.y - 1) % height;
+        this.y = (this.y + 1) % height;
     }
 
     private void moveWS(int width, int height){
         this.x = (this.x - 1) % width;
-        this.y = (this.y - 1) % height;
+        this.y = (this.y + 1) % height;
     }
 
     private void moveWN(int width, int height){
         this.x = (this.x - 1) % width;
-        this.y = (this.y + 1) % height;
+        this.y = (this.y - 1) % height;
     }
 
     public int getX() {

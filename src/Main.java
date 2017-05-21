@@ -19,7 +19,7 @@ public class Main extends PApplet {
         world = new World(this, width - 120, height);
         plot = new GensPlot(world, 100, 100);
         popCountPlot = new PopulationPlot(world, this, 100, 50, 100);
-        day = 0;
+        day = 1000;
         world.dayN(day);
 
     }
