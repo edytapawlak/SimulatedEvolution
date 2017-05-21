@@ -1,4 +1,3 @@
-import com.sun.deploy.util.ArrayUtil;
 import processing.core.PApplet;
 
 import java.util.Arrays;

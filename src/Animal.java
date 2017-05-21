@@ -48,7 +48,7 @@ public class Animal {
 
     public Animal reproduce(){
         int[] chldrenGenes;
-        if(energy > 200){
+        if (energy > 200) {
             chldrenGenes = new int[8];
             for (int i = 0; i < this.gens.length; i++) {
                 chldrenGenes[i] = this.gens[i];
@@ -59,7 +59,7 @@ public class Animal {
             int randomIndex = rand.nextInt(8);
             int random = rand.nextInt(3);
             chldrenGenes[randomIndex] = Math.max(1, this.gens[randomIndex] + random - 1);
-            int childCanibalGen = this.kanibalGen + rand.nextInt(3) - 1;
+            int childCanibalGen = Math.max(this.kanibalGen + rand.nextInt(3) - 1, 0);
             this.energy = (int) (this.energy / 2);
             return new Animal(this.getX(), this.getY(), this.energy, chldrenGenes, childCanibalGen);
         }
@@ -186,6 +186,10 @@ public class Animal {
 
     public int[] getGens() {
         return gens;
+    }
+
+    public int getCanibal() {
+        return kanibalGen;
     }
 
 }
