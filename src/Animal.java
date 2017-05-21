@@ -44,6 +44,7 @@ public class Animal {
         this.childrens = 0;
     }
 
+
     public void eat(int energy){
         this.energy += energy;
     }
