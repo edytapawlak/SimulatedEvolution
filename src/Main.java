@@ -136,7 +136,7 @@ public class Main extends PApplet {
         textFont(font);
         popCountPlot.drawPlot(width - statBarWidth + statLeftPadding + statBarBoarderWidth, height - 160);
         textFont(fontSmall);
-        text("Population dynamics plot:", width - statBarWidth + statLeftPadding + statBarBoarderWidth, height-236);
+        text("Population dynamics:", width - statBarWidth + statLeftPadding + statBarBoarderWidth, height-236);
 
         plot.drawPlot(width - statBarWidth + statLeftPadding + statBarBoarderWidth, height - 20);
         text("Avarage genotype:", width - statBarWidth + statLeftPadding + statBarBoarderWidth, height-122);
