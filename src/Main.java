@@ -1,19 +1,24 @@
 import processing.core.PApplet;
 import processing.core.PGraphics;
+import processing.core.PImage;
 
-/**
- * Created by szpirala on 18.05.17.
- */
 public class Main extends PApplet {
 
     private PGraphics worldScreen;
+    private PImage filterTexture;
     private GensPlot plot;
     private PopulationPlot popCountPlot;
     private World world;
+    private int WORLD_SIZE = 400;
     private int width = 640;
     private int height = 480;
 
-    private float zoom = 2;
+    private int xCoord;
+    private int yCoord;
+    private float xScale;
+    private float yScale;
+
+    private float zoom = 1;
     private boolean isZoomPressed = false;
     private boolean isUnzoomPressed = false;
     int day;
@@ -22,24 +27,35 @@ public class Main extends PApplet {
 
     public void settings() {
         size(width, height, P3D);
-        world = new World(this, width/2, height/2);
+        world = new World(this, WORLD_SIZE, WORLD_SIZE);
         plot = new GensPlot(world, 100, 100);
         popCountPlot = new PopulationPlot(world, this, 100, 50, 100);
         day = 0;
         world.dayN(day);
-
     }
 
     public void setup() {
         worldScreen = createGraphics(width-120, height, P3D);
+        filterTexture = loadImage("filter.png");
+        filterTexture.resize(worldScreen.width, worldScreen.height);
         noStroke();
-//        colorMode(RGB, height, height, height);
         lastTimeCheck = millis();
+
+        xScale = Math.max((float)width / (float)WORLD_SIZE, 1.0f);
+
+//        yScale = (float) Math.max(
+//                Math.ceil(
+//                        (float)height / (float)WORLD_SIZE), 1.0f);
+        yScale = xScale;
     }
 
 
     public void draw() {
-        if (isUnzoomPressed && zoom > 0.5) {
+        noCursor();
+        xCoord = (int) ((float)WORLD_SIZE * xScale * ((float)mouseX / (float)(width - 120)));
+        yCoord = (int) ((float)WORLD_SIZE * yScale * ((float)mouseY / (float)height));
+
+        if (isUnzoomPressed && zoom > 0) {
             zoom -= 0.01f;
         }
         if (isZoomPressed && zoom < 2.9) {
@@ -49,32 +65,33 @@ public class Main extends PApplet {
         world.worldDay();
         worldScreen.noStroke();
         worldScreen.beginDraw();
-            worldScreen.background(205, 176, 130);
+            worldScreen.background(73,56,49);
+            worldScreen.fill(235,194,136);
+            worldScreen.rect(0, 0, (WORLD_SIZE + 1) * xScale, (WORLD_SIZE + 1) * yScale);
+
             world.drawPlants(worldScreen);
             world.drawAnimals(worldScreen);
+
             worldScreen.camera(
-                    (mouseX + worldScreen.width/2.0f) / 2.0f,
-                    (mouseY + worldScreen.height/2.0f) / 2.0f,
-                    (worldScreen.height / (float)Math.exp(this.zoom)) / (float)Math.tan(Math.PI * 30.0 / 180.0),
-//                    (worldScreen.height / (float)Math.exp(this.zoom)) / zoom,
-                    (mouseX + worldScreen.width/2.0f) / 2.0f,
-                    (mouseY + worldScreen.height/2.0f) / 2.0f,
+                    xCoord,
+                    yCoord,
+                    (WORLD_SIZE / (float)Math.exp(this.zoom * xScale)),
+                    xCoord,
+                    yCoord,
                     0.0f,
                     0.0f,
                     1.0f,
                     0.0f);
-            worldScreen.translate(mouseX, mouseY, 0.5f);
-//            worldScreen.rotateX(-PI/6);
-//            worldScreen.rotateY(PI/3);
-            worldScreen.fill(255, 0, 0);
-            worldScreen.sphere(10f);
+            worldScreen.translate(xCoord, yCoord, 0.0f);
+            worldScreen.fill(255, 117, 213, 200);
+            worldScreen.box(8f/(this.zoom+1));
         worldScreen.endDraw();
         fill(190);
         rect(width - 120, 0, 120, height);
         fill(5);
         text("Iteration: " + day, width - 115, 30);
-        int avarage[] = world.avarageLifeTime();
-        text("Avg. age: \t" + avarage[0] + "s, \t" + avarage[1], width - 115, 60);
+        text("Avg. age: " + world.avarageLifeTime() +
+                "s,\nAvg. energy: " + world.avarageEnergy() , width - 115, 60);
         plot.drawPlot(width - 115, height - 50);
         day++;
         popCountPlot.drawPlot(width - 115, height - 200);
@@ -84,13 +101,17 @@ public class Main extends PApplet {
             plot.updateGensPop();
         }
         image(worldScreen, 0, 0);
+//        image(filterTexture, 0, 0);
     }
 
     public void mouseClicked() {
         if (mouseButton == LEFT) {
-            world.addJungle(mouseX/2, mouseY/2);
-        } else if (mouseButton == RIGHT) {
-            world.addAnimal(mouseX/2, mouseY/2);
+            world.addJungle((int) ((float)WORLD_SIZE * ((float)mouseX / (float)(width - 120))),
+                    (int) ((float)WORLD_SIZE * ((float)mouseY / (float)height)));
+        }
+        if (mouseButton == RIGHT) {
+            world.addAnimal((int) ((float)WORLD_SIZE * ((float)mouseX / (float)(width - 120))),
+                    (int) ((float)WORLD_SIZE * ((float)mouseY / (float)height)));
         }
     }
 

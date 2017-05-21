@@ -15,7 +15,7 @@ public class World {
     private int width;
     private int height;
     private int jungleRadius = 25;
-    private int scale;
+    private float scale;
 
     private List<Jungle> jungles;
     private List<Plant> plants;
@@ -26,14 +26,13 @@ public class World {
         jungles = new ArrayList<>();
         animals = new ArrayList<>();
 
-        //testowa dżungla
-        jungles.add(new Jungle((int) (width/2), (int) (height/2), jungleRadius));
-        // testowe zwierze
-        animals.add(new Animal((int) (width/2), (int) (height/2), 1000));
+        jungles.add(new Jungle(width/2, height/2, jungleRadius));
+        animals.add(new Animal(width/2, height/2, 1000));
+
         this.context = context;
         this.width = width;
         this.height = height;
-        this.scale = context.height / height;
+        this.scale = Math.max((float)context.width / (float)width, 1.0f);
     }
 
     public void worldDay() {
@@ -54,37 +53,27 @@ public class World {
     }
 
     /**
-     * @param left   lewy x lewego górnego rogu obszaru losowania
-     * @param top    górny y lewego górnego rogu obszaru losowania
      * @param width  szerokość obszatu z którego losuje
      * @param height wysokość obszaru z którego losuje
      */
-    private Plant[] randomPlant(int left, int top, int width, int height) {
+    private Plant randomPlant(int width, int height) {
         int randomX;
         int randomY;
-        Plant[] pl = new Plant[2];
         Random rand = new Random();
-        for (int i = 0; i < pl.length; i++) {
-//            randomX = ThreadLocalRandom.current().nextInt(left, width + 1);
-//            randomY = ThreadLocalRandom.current().nextInt(top, height + 1);
-            randomX = rand.nextInt(width + 1);
-            randomY = rand.nextInt(height + 1);
-            pl[i] = new Plant(randomX, randomY);
-        }
-        return pl;
+        randomX = rand.nextInt(width + 1);
+        randomY = rand.nextInt(height + 1);
+        return new Plant(randomX, randomY);
     }
 
     public void addPlants() {
-        Plant[] pl = randomPlant(0, 0, width, height);
-        for (int i = 0; i < pl.length ; i++) {
-            plants.add(pl[i]);
+        float stableWorldSize = 300.0f;
+        int max = (int) (((float)width/stableWorldSize)*((float)width/stableWorldSize));
+        for (int i = 0; i <= max; i++) {
+            plants.add(randomPlant(width, height));
         }
-//        plants.add(randomPlant(0, 0, width, height));
         for (Jungle j :
                 jungles) {
-            for (int i = 0; i < 2; i++) {
                 plants.add(j.randomPlant());
-            }
         }
     }
 
@@ -162,7 +151,9 @@ public class World {
     public void drawAnimals(PGraphics layer) {
         for (Animal a :
                 animals) {
-            layer.fill(100+(a.getEnergy()%155), 0, 0);
+            layer.fill(
+                    Math.min(10*a.getCanibal(), 255.0f),
+                    0, 0);
             layer.rect(a.getX()*scale, a.getY()*scale, scale, scale);
         }
     }
@@ -186,15 +177,21 @@ public class World {
         return sum;
     }
 
-    public int[] avarageLifeTime(){
-        int[] sum = new int[2];
-        for (int i = 0; i < animals.size(); i++) {
-            sum[1] += animals.get(i).getEnergy();
+
+    public int avarageEnergy() {
+        int sum = 0;
+        for (Animal animal :
+                animals) {
+            sum += animal.getEnergy();
         }
+        return (animals.size() > 0) ? sum / animals.size() : 0;
+    }
+
+    public String avarageLifeTime() {
+        float avge = avarageEnergy();
         float fps = context.frameRate;
-        sum[0] = (fps > 0 && animals.size() > 0) ? (int)((sum[1]/animals.size())/fps) : 0;
-        sum[1] = (animals.size() > 0) ? sum[1] / animals.size(): 0;
-        return sum;
+        float out = (fps > 0 && animals.size() > 0) ? avge / fps : 0.0f;
+        return String.format("%.2g", out);
     }
 
     public int getCount(){
