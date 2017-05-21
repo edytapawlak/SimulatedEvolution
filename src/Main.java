@@ -123,7 +123,7 @@ public class Main extends PApplet {
         stroke(167,197,189);
         strokeWeight(0.5f);
         line(width - 110, 50, width - 10, 50);
-
+        noStroke();
         textFont(font);
         text("Avg. age: " + world.avarageLifeTime() +
             "s,\nAvg. energy: " + world.avarageEnergy() , width - statBarWidth + statLeftPadding + statBarBoarderWidth, 70);
@@ -131,15 +131,15 @@ public class Main extends PApplet {
 
         textFont(fontSmall);
         alfaAnimalPlot.drawPlot(width - statBarWidth + statLeftPadding + statBarBoarderWidth, 210);
-        text("Best unit:", width - statBarWidth + statLeftPadding + statBarBoarderWidth, 128);
+        text("Best unit genotype:", width - statBarWidth + statLeftPadding + statBarBoarderWidth, 128);
 
         textFont(font);
         popCountPlot.drawPlot(width - statBarWidth + statLeftPadding + statBarBoarderWidth, height - 160);
         textFont(fontSmall);
-        text("Population plot:", width - statBarWidth + statLeftPadding + statBarBoarderWidth, height-236);
+        text("Population dynamics plot:", width - statBarWidth + statLeftPadding + statBarBoarderWidth, height-236);
 
         plot.drawPlot(width - statBarWidth + statLeftPadding + statBarBoarderWidth, height - 20);
-        text("Avarage genes:", width - statBarWidth + statLeftPadding + statBarBoarderWidth, height-122);
+        text("Avarage genotype:", width - statBarWidth + statLeftPadding + statBarBoarderWidth, height-122);
 
         day++;
         image(worldScreen, 0, 0);
