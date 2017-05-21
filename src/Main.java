@@ -7,6 +7,7 @@ public class Main extends PApplet {
     private PGraphics worldScreen;
     private PImage filterTexture;
     private GensPlot plot;
+    private GensPlot alfaAnimalPlot;
     private PopulationPlot popCountPlot;
     private World world;
     private int WORLD_SIZE = 400;
@@ -29,6 +30,7 @@ public class Main extends PApplet {
         size(width, height, P3D);
         world = new World(this, WORLD_SIZE, WORLD_SIZE);
         plot = new GensPlot(world, 100, 100);
+        alfaAnimalPlot = new GensPlot(world, 80, 80);
         popCountPlot = new PopulationPlot(world, this, 100, 50, 100);
         day = 1000;
         world.dayN(day);
@@ -92,6 +94,8 @@ public class Main extends PApplet {
         text("Iteration: " + day, width - 115, 30);
         text("Avg. age: " + world.avarageLifeTime() +
                 "s,\nAvg. energy: " + world.avarageEnergy() , width - 115, 60);
+        text(world.printAlfaAnimal(), width - 115, 90);
+        alfaAnimalPlot.drawPlot(width - 100, 200);
         plot.drawPlot(width - 115, height - 50);
         day++;
         popCountPlot.drawPlot(width - 115, height - 200);
@@ -99,6 +103,7 @@ public class Main extends PApplet {
             lastTimeCheck = millis();
             popCountPlot.updatePlot();
             plot.updateGensPop();
+            alfaAnimalPlot.updateAlfaAnimalData();
         }
         image(worldScreen, 0, 0);
 //        image(filterTexture, 0, 0);

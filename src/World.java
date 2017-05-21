@@ -1,10 +1,7 @@
 import processing.core.PApplet;
 import processing.core.PGraphics;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 /**
  * Created by szpirala on 20.05.17.
@@ -26,13 +23,13 @@ public class World {
         jungles = new ArrayList<>();
         animals = new ArrayList<>();
 
-        jungles.add(new Jungle(width/2, height/2, jungleRadius));
-        animals.add(new Animal(width/2, height/2, 1000));
+        jungles.add(new Jungle(width / 2, height / 2, jungleRadius));
+        animals.add(new Animal(width / 2, height / 2, 1000));
 
         this.context = context;
         this.width = width;
         this.height = height;
-        this.scale = Math.max((float)context.width / (float)width, 1.0f);
+        this.scale = Math.max((float) context.width / (float) width, 1.0f);
     }
 
     public void worldDay() {
@@ -67,13 +64,13 @@ public class World {
 
     public void addPlants() {
         float stableWorldSize = 300.0f;
-        int max = (int) (((float)width/stableWorldSize)*((float)width/stableWorldSize));
+        int max = (int) (((float) width / stableWorldSize) * ((float) width / stableWorldSize));
         for (int i = 0; i <= max; i++) {
             plants.add(randomPlant(width, height));
         }
         for (Jungle j :
                 jungles) {
-                plants.add(j.randomPlant());
+            plants.add(j.randomPlant());
         }
     }
 
@@ -144,7 +141,7 @@ public class World {
         for (Plant p :
                 plants) {
             layer.fill(0, 109, 37);
-            layer.rect(p.getX()*scale, p.getY()*scale, p.getHeight()*scale, p.getHeight()*scale);
+            layer.rect(p.getX() * scale, p.getY() * scale, p.getHeight() * scale, p.getHeight() * scale);
         }
     }
 
@@ -152,9 +149,17 @@ public class World {
         for (Animal a :
                 animals) {
             layer.fill(
-                    Math.min(10*a.getCanibal(), 255.0f),
+                    Math.min(10 * a.getCanibal(), 255.0f),
                     0, 0);
-            layer.rect(a.getX()*scale, a.getY()*scale, scale, scale);
+            layer.rect(a.getX() * scale, a.getY() * scale, scale, scale);
+        }
+        Animal anim = getAlfaAnimal();
+        if(anim!= null) {
+            layer.fill(0, 0, 250, 100);
+            layer.pushMatrix();
+            layer.translate(anim.getX() * scale, anim.getY() * scale, 0);
+            layer.sphere(5f);
+            layer.popMatrix();
         }
     }
 
@@ -194,8 +199,43 @@ public class World {
         return String.format("%.2g", out);
     }
 
-    public int getCount(){
+    public int getCount() {
         return animals.size();
+    }
+
+    public Animal getAlfaAnimal() {
+        if (!animals.isEmpty()) {
+            return Collections.max(animals, new Comparator<Animal>() {
+                @Override
+                public int compare(Animal o1, Animal o2) {
+                    return Integer.compare(o1.getChildrens(), o2.getChildrens());
+                }
+            });
+        }
+        return null;
+    }
+
+    public String printAlfaAnimal() {
+        Animal a = getAlfaAnimal();
+        String out = "";
+        if (a != null) {
+            out = "Max childrens: " + a.getChildrens();
+        }
+        return out;
+    }
+
+    public float[] getAlfaAnimalGenes() {
+        Animal a = getAlfaAnimal();
+        float[] outGens = null;
+        if (a != null) {
+            outGens = new float[a.getGens().length];
+            if (a != null) {
+                for (int i = 0; i < a.getGens().length; i++) {
+                    outGens[i] = a.getGens()[i];
+                }
+            }
+        }
+        return outGens;
     }
 
     public PApplet getContext() {
