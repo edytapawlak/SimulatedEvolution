@@ -220,7 +220,7 @@ public class World {
         Animal a = getAlfaAnimal();
         String out = "";
         if (a != null) {
-            out = "Max childrens: " + a.getChildrens();
+            out = "Max children: " + a.getChildrens();
         }
         return out;
     }
