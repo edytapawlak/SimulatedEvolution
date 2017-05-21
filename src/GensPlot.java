@@ -29,6 +29,12 @@ public class GensPlot {
     }
 
     public void drawPlot(float leftBottomX, float leftBottomY){
+        context.stroke(167,197,189);
+        context.strokeWeight(0.5f);
+        context.line(leftBottomX, leftBottomY - height, leftBottomX + width, leftBottomY - height);
+        context.line(leftBottomX, leftBottomY, leftBottomX + width, leftBottomY);
+        context.noStroke();
+
 //        this.gensPopulation = world.getGensData();
         if(this.gensPopulation == null){
             this.gensPopulation = new float[8];
@@ -38,11 +44,13 @@ public class GensPlot {
             max = Math.max(gensPopulation[i], max);
         }
         float wid = (this.width - 10)/gensPopulation.length;
-            float color = 30;
+            float color = 70;
         for (int i = 0; i < gensPopulation.length; i++) {
-            context.fill(0, color * (i + 1), 0);
+            context.fill(207, color + 10 * i, 71);
+            context.noStroke();
             context.rect(leftBottomX + i * wid, leftBottomY, wid, -gensPopulation[i]* height/ max );
-            context.text( i+1, leftBottomX + i * wid, leftBottomY + 10);
+            context.fill(82, 70, 86);
+            context.text(i+1, leftBottomX + i * wid, leftBottomY + 15);
         }
     }
 

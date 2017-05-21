@@ -1,4 +1,5 @@
 import processing.core.PApplet;
+import processing.core.PFont;
 import processing.core.PGraphics;
 import processing.core.PImage;
 
@@ -6,6 +7,8 @@ public class Main extends PApplet {
 
     private PGraphics worldScreen;
     private PImage filterTexture;
+    private PFont font;
+
     private GensPlot plot;
     private GensPlot alfaAnimalPlot;
     private PopulationPlot popCountPlot;
@@ -26,6 +29,10 @@ public class Main extends PApplet {
     int lastTimeCheck;
     int timeIntervalFlag = 4 * (int)frameRate;
 
+    private static int statBarWidth = 130;
+    private static int statBarBoarderWidth = 10;
+    private static int statLeftPadding = 11;
+
     public void settings() {
         size(width, height, P3D);
         world = new World(this, WORLD_SIZE, WORLD_SIZE);
@@ -37,7 +44,8 @@ public class Main extends PApplet {
     }
 
     public void setup() {
-        worldScreen = createGraphics(width-120, height, P3D);
+        font = createFont("Roboto-Regular.ttf", 12);
+        worldScreen = createGraphics(width-statBarWidth, height, P3D);
         filterTexture = loadImage("filter.png");
         filterTexture.resize(worldScreen.width, worldScreen.height);
         noStroke();
@@ -49,12 +57,13 @@ public class Main extends PApplet {
 //                Math.ceil(
 //                        (float)height / (float)WORLD_SIZE), 1.0f);
         yScale = xScale;
+        noCursor();
     }
 
 
     public void draw() {
-        noCursor();
-        xCoord = (int) ((float)WORLD_SIZE * xScale * ((float)mouseX / (float)(width - 120)));
+        textFont(font);
+        xCoord = (int) ((float)WORLD_SIZE * xScale * ((float)mouseX / (float)(width - statBarWidth)));
         yCoord = (int) ((float)WORLD_SIZE * yScale * ((float)mouseY / (float)height));
 
         if (isUnzoomPressed && zoom > 0) {
@@ -67,17 +76,16 @@ public class Main extends PApplet {
         world.worldDay();
         worldScreen.noStroke();
         worldScreen.beginDraw();
-            worldScreen.background(73,56,49);
+            worldScreen.background(82, 70, 86);
             worldScreen.fill(235,194,136);
             worldScreen.rect(0, 0, (WORLD_SIZE + 1) * xScale, (WORLD_SIZE + 1) * yScale);
-
             world.drawPlants(worldScreen);
             world.drawAnimals(worldScreen);
 
             worldScreen.camera(
                     xCoord,
                     yCoord,
-                    (WORLD_SIZE / (float)Math.exp(this.zoom * xScale)),
+                    (WORLD_SIZE * xScale / (float)Math.exp(this.zoom)),
                     xCoord,
                     yCoord,
                     0.0f,
@@ -88,17 +96,20 @@ public class Main extends PApplet {
             worldScreen.fill(255, 117, 213, 200);
             worldScreen.box(8f/(this.zoom+1));
         worldScreen.endDraw();
-        fill(190);
-        rect(width - 120, 0, 120, height);
-        fill(5);
-        text("Iteration: " + day, width - 115, 30);
+        noStroke();
+        fill(229,221,203);
+        rect(width - statBarWidth + statBarBoarderWidth, 0, 120, height);
+        fill(167,197,189);
+        rect(width - statBarWidth, 0, statBarBoarderWidth, height);
+        fill(82,70,86);
+        text("Day: #" + day, width - 110, 20);
         text("Avg. age: " + world.avarageLifeTime() +
-                "s,\nAvg. energy: " + world.avarageEnergy() , width - 115, 60);
+            "s,\nAvg. energy: " + world.avarageEnergy() , width - 110, 60);
+        plot.drawPlot(width - statBarWidth + statLeftPadding + statBarBoarderWidth, height - 30);
         text(world.printAlfaAnimal(), width - 115, 90);
         alfaAnimalPlot.drawPlot(width - 100, 200);
-        plot.drawPlot(width - 115, height - 50);
         day++;
-        popCountPlot.drawPlot(width - 115, height - 200);
+        popCountPlot.drawPlot(width - statBarWidth + statLeftPadding + statBarBoarderWidth, height - 180);
         if (millis() > lastTimeCheck + timeIntervalFlag) {
             lastTimeCheck = millis();
             popCountPlot.updatePlot();
@@ -106,16 +117,15 @@ public class Main extends PApplet {
             alfaAnimalPlot.updateAlfaAnimalData();
         }
         image(worldScreen, 0, 0);
-//        image(filterTexture, 0, 0);
     }
 
     public void mouseClicked() {
         if (mouseButton == LEFT) {
-            world.addJungle((int) ((float)WORLD_SIZE * ((float)mouseX / (float)(width - 120))),
+            world.addJungle((int) ((float)WORLD_SIZE * ((float)mouseX / (float)(width - statBarWidth))),
                     (int) ((float)WORLD_SIZE * ((float)mouseY / (float)height)));
         }
         if (mouseButton == RIGHT) {
-            world.addAnimal((int) ((float)WORLD_SIZE * ((float)mouseX / (float)(width - 120))),
+            world.addAnimal((int) ((float)WORLD_SIZE * ((float)mouseX / (float)(width - statBarWidth))),
                     (int) ((float)WORLD_SIZE * ((float)mouseY / (float)height)));
         }
     }
