@@ -3,6 +3,6 @@ Evolutionary algorithm based on Conrad Barski's book „_Land of Lisp_” and A.
 
 [![youtube preview](https://j.gifs.com/lO18l5.gif)](https://youtu.be/EODNAZlkics)
 
-(The red ones has cannibalistic behavior. Click on the image to view full youtube demo)
+(The red ones has cannibalistic behavior. Click on the animation to view full youtube demo)
 
 ![alt tag](https://github.com/rszczers/SimulatedEvolution/blob/master/evolution.png)
