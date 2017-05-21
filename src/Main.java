@@ -10,6 +10,7 @@ public class Main extends PApplet {
     private PFont font;
 
     private GensPlot plot;
+    private GensPlot alfaAnimalPlot;
     private PopulationPlot popCountPlot;
     private World world;
     private int WORLD_SIZE = 400;
@@ -36,8 +37,9 @@ public class Main extends PApplet {
         size(width, height, P3D);
         world = new World(this, WORLD_SIZE, WORLD_SIZE);
         plot = new GensPlot(world, 100, 100);
+        alfaAnimalPlot = new GensPlot(world, 80, 80);
         popCountPlot = new PopulationPlot(world, this, 100, 50, 100);
-        day = 0;
+        day = 1000;
         world.dayN(day);
     }
 
@@ -102,14 +104,17 @@ public class Main extends PApplet {
         fill(82,70,86);
         text("Day: #" + day, width - 110, 20);
         text("Avg. age: " + world.avarageLifeTime() +
-                "s,\nAvg. energy: " + world.avarageEnergy() , width - 110, 60);
+            "s,\nAvg. energy: " + world.avarageEnergy() , width - 110, 60);
         plot.drawPlot(width - statBarWidth + statLeftPadding + statBarBoarderWidth, height - 30);
+        text(world.printAlfaAnimal(), width - 115, 90);
+        alfaAnimalPlot.drawPlot(width - 100, 200);
         day++;
         popCountPlot.drawPlot(width - statBarWidth + statLeftPadding + statBarBoarderWidth, height - 180);
         if (millis() > lastTimeCheck + timeIntervalFlag) {
             lastTimeCheck = millis();
             popCountPlot.updatePlot();
             plot.updateGensPop();
+            alfaAnimalPlot.updateAlfaAnimalData();
         }
         image(worldScreen, 0, 0);
     }

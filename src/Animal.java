@@ -10,7 +10,7 @@ public class Animal {
     private int x;
     private int y;
     private int age;
-//    private Animal[] chilrens;
+    private int childrens;
     private int energy;
     /**
      * 8 genów odpowiadających za kierunek
@@ -26,6 +26,7 @@ public class Animal {
         this.age = 0;
         this.energy = energy;
         this.kanibalGen = kanibalGen;
+        this.childrens = 0;
     }
 
     public Animal(int x, int y, int energy){
@@ -40,6 +41,7 @@ public class Animal {
         this.y = y;
         this.age = 0;
         this.energy = energy;
+        this.childrens = 0;
     }
 
     public void eat(int energy){
@@ -61,6 +63,7 @@ public class Animal {
             chldrenGenes[randomIndex] = Math.max(1, this.gens[randomIndex] + random - 1);
             int childCanibalGen = Math.max(this.kanibalGen + rand.nextInt(3) - 1, 0);
             this.energy = (int) (this.energy / 2);
+            this.childrens++;
             return new Animal(this.getX(), this.getY(), this.energy, chldrenGenes, childCanibalGen);
         }
         return null;
@@ -91,7 +94,6 @@ public class Animal {
             sum += g;
         }
         Random rand = new Random();
-//        int random = ThreadLocalRandom.current().nextInt(0, sum + 1);
         int random = rand.nextInt(sum + 1);
         int partSum = 0;
         int i = 0;
@@ -151,22 +153,22 @@ public class Animal {
 
     private void moveEN(int width, int height){
         this.x = (this.x + 1) % width;
-        this.y = (this.y +1) % height;
+        this.y = (this.y - 1) % height;
     }
 
     private void moveES(int width, int height){
         this.x = (this.x + 1) % width;
-        this.y = (this.y - 1) % height;
+        this.y = (this.y + 1) % height;
     }
 
     private void moveWS(int width, int height){
         this.x = (this.x - 1) % width;
-        this.y = (this.y - 1) % height;
+        this.y = (this.y + 1) % height;
     }
 
     private void moveWN(int width, int height){
         this.x = (this.x - 1) % width;
-        this.y = (this.y + 1) % height;
+        this.y = (this.y - 1) % height;
     }
 
     public int getX() {
@@ -193,4 +195,7 @@ public class Animal {
         return kanibalGen;
     }
 
+    public int getChildrens() {
+        return childrens;
+    }
 }

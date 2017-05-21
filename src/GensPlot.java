@@ -36,6 +36,9 @@ public class GensPlot {
         context.noStroke();
 
 //        this.gensPopulation = world.getGensData();
+        if(this.gensPopulation == null){
+            this.gensPopulation = new float[8];
+        }
         float max = 1;
         for (int i = 0; i < gensPopulation.length; i++) {
             max = Math.max(gensPopulation[i], max);
@@ -53,6 +56,10 @@ public class GensPlot {
 
     public void updateGensPop(){
         this.gensPopulation = world.getGensData();
+    }
+
+    public void updateAlfaAnimalData(){
+        this.gensPopulation = world.getAlfaAnimalGenes();
     }
 
     public void setGensPopulation(float[] gensPopulation) {
