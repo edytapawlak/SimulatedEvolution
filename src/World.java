@@ -1,4 +1,5 @@
 import processing.core.PApplet;
+import processing.core.PGraphics;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -13,7 +14,8 @@ public class World {
     private PApplet context;
     private int width;
     private int height;
-    private int jungleRadius = 50;
+    private int jungleRadius = 25;
+    private int scale;
 
     private List<Jungle> jungles;
     private List<Plant> plants;
@@ -25,12 +27,13 @@ public class World {
         animals = new ArrayList<>();
 
         //testowa dżungla
-        jungles.add(new Jungle((int) (width / 2), (int) (height / 2), jungleRadius));
+        jungles.add(new Jungle((int) (width/2), (int) (height/2), jungleRadius));
         // testowe zwierze
-        animals.add(new Animal((int) (width / 2), (int) (height / 2), 10000));
+        animals.add(new Animal((int) (width/2), (int) (height/2), 1000));
         this.context = context;
         this.width = width;
         this.height = height;
+        this.scale = context.height / height;
     }
 
     public void worldDay() {
@@ -148,19 +151,19 @@ public class World {
     }
 
 
-    public void drawPlants() {
+    public void drawPlants(PGraphics layer) {
         for (Plant p :
                 plants) {
-            context.fill(0, 255, 0);
-            context.rect(p.getX(), p.getY(), p.getHeight(), p.getHeight());
+            layer.fill(0, 109, 37);
+            layer.rect(p.getX()*scale, p.getY()*scale, p.getHeight()*scale, p.getHeight()*scale);
         }
     }
 
-    public void drawAnimals() {
+    public void drawAnimals(PGraphics layer) {
         for (Animal a :
                 animals) {
-            context.fill(a.getEnergy(), 0, 0);
-            context.rect(a.getX(), a.getY(), 1, 1);
+            layer.fill(100+(a.getEnergy()%155), 0, 0);
+            layer.rect(a.getX()*scale, a.getY()*scale, scale, scale);
         }
     }
 

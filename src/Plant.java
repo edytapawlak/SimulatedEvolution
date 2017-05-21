@@ -5,13 +5,13 @@ public class Plant {
     private int x;
     private int y;
     private int energy;
-    private int height;
+    private int size;
 
     public Plant(int x, int y){
         this.x = x;
         this.y = y;
         this.energy = 60;
-        this.height = 1;
+        this.size = 1;
     }
 
     public int getX() {
@@ -35,7 +35,7 @@ public class Plant {
     }
 
     public int getHeight(){
-        return height;
+        return size;
     }
 
 }
