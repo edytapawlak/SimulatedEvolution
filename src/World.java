@@ -159,7 +159,7 @@ public class World {
     }
 
     public float[] getGensData() {
-        float[] sum = new float[8];
+        float[] sum = new float[9];
         int[] gens;
         Animal a;
         for (int i = 0; i < animals.size(); i++) {
@@ -168,6 +168,7 @@ public class World {
             for (int j = 0; j < gens.length; j++) {
                 sum[j] += gens[j];
             }
+            sum[sum.length - 1] += a.getCanibal();
         }
         if (animals.size() > 0) {
             for (int i = 0; i < sum.length; i++) {

@@ -28,11 +28,11 @@ public class PopulationPlot {
         for (int i = 0; i < sampleCount; i++) {
             max = Math.max(max, populationIntime[i]);
         }
-        context.fill(15);
-        context.rect(leftBottomX, leftBottomY - height, width, height);
+        context.fill(235,123,89);
+        context.rect(leftBottomX, leftBottomY - 25 - height, width, height + 25);
 
-        context.fill(240);
         context.beginShape();
+        context.fill(82,70,86);
         context.vertex(leftBottomX + (sampleCount-1) * wid, leftBottomY);
         context.vertex(leftBottomX, leftBottomY);
         for (int i = 0; i < sampleCount; i++) {
@@ -40,7 +40,7 @@ public class PopulationPlot {
             context.vertex(leftBottomX + i * wid, leftBottomY - populationIntime[i] * height / max);
         }
         context.endShape();
-        context.fill(5);
+        context.fill(82,70,86);
         context.text("Population: " + populationIntime[populationIntime.length - 1], leftBottomX, leftBottomY + 15);
 
     }
