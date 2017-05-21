@@ -33,11 +33,11 @@ public class PopulationPlot {
 
         context.beginShape();
         context.fill(82,70,86);
-        context.vertex(leftBottomX + (sampleCount-1) * wid, leftBottomY);
+        context.vertex(leftBottomX + (sampleCount-1) * wid + 1, leftBottomY);
         context.vertex(leftBottomX, leftBottomY);
         for (int i = 0; i < sampleCount; i++) {
 //            context.ellipse(leftBottomX + (i + 1) * wid, leftBottomY - populationIntime[i]*height/max, 5, 5);
-            context.vertex(leftBottomX + i * wid, leftBottomY - populationIntime[i] * height / max);
+            context.vertex(leftBottomX + i * wid + 1, leftBottomY - populationIntime[i] * height / max);
         }
         context.endShape();
         context.fill(82,70,86);

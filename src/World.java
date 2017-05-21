@@ -229,12 +229,11 @@ public class World {
         Animal a = getAlfaAnimal();
         float[] outGens = null;
         if (a != null) {
-            outGens = new float[a.getGens().length];
-            if (a != null) {
+            outGens = new float[a.getGens().length + 1];
                 for (int i = 0; i < a.getGens().length; i++) {
                     outGens[i] = a.getGens()[i];
                 }
-            }
+                outGens[outGens.length - 1] = a.getCanibal();
         }
         return outGens;
     }

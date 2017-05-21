@@ -21,7 +21,7 @@ public class GensPlot {
     private int height;
 
     public GensPlot(World world, int width, int height){
-        this.gensPopulation = new float[8];
+        this.gensPopulation = new float[9];
         this.world = world;
         this.context = world.getContext();
         this.width = width;
@@ -36,21 +36,18 @@ public class GensPlot {
         context.noStroke();
 
 //        this.gensPopulation = world.getGensData();
-        if(this.gensPopulation == null){
-            this.gensPopulation = new float[8];
-        }
         float max = 1;
         for (int i = 0; i < gensPopulation.length; i++) {
             max = Math.max(gensPopulation[i], max);
         }
-        float wid = (this.width - 10)/gensPopulation.length;
+        float wid = (this.width)/gensPopulation.length;
             float color = 70;
         for (int i = 0; i < gensPopulation.length; i++) {
             context.fill(207, color + 10 * i, 71);
             context.noStroke();
             context.rect(leftBottomX + i * wid, leftBottomY, wid, -gensPopulation[i]* height/ max );
             context.fill(82, 70, 86);
-            context.text(i+1, leftBottomX + i * wid, leftBottomY + 15);
+            context.text(i+1, leftBottomX + i * wid + 2, leftBottomY + 10);
         }
     }
 
@@ -59,7 +56,9 @@ public class GensPlot {
     }
 
     public void updateAlfaAnimalData(){
-        this.gensPopulation = world.getAlfaAnimalGenes();
+        if(world.getAlfaAnimalGenes() != null) {
+            this.gensPopulation = world.getAlfaAnimalGenes();
+        }
     }
 
     public void setGensPopulation(float[] gensPopulation) {
