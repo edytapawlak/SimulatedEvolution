@@ -63,7 +63,7 @@ public class World {
     }
 
     public void addPlants() {
-        float stableWorldSize = 300.0f;
+        float stableWorldSize = 350.0f;
         int max = (int) (((float) width / stableWorldSize) * ((float) width / stableWorldSize));
         for (int i = 0; i <= max; i++) {
             plants.add(randomPlant(width, height));
