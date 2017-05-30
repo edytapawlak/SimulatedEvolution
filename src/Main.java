@@ -31,6 +31,7 @@ public class Main extends PApplet {
     int lastTimeCheck;
     int timeIntervalFlag = 4 * (int)frameRate;
 
+    private static int iterationStart = 1000;
     private static int statBarWidth = 130;
     private static int statBarBoarderWidth = 10;
     private static int statLeftPadding = 10;
@@ -42,7 +43,7 @@ public class Main extends PApplet {
         plot = new GensPlot(world, statItemWidth, 100);
         alfaAnimalPlot = new GensPlot(world, statItemWidth, 80);
         popCountPlot = new PopulationPlot(world, this, statItemWidth, 50, 100);
-        day = 1000;
+        day = iterationStart;
         world.dayN(day);
     }
 
@@ -164,6 +165,9 @@ public class Main extends PApplet {
         if (key == '-' || key == '_') {
             isZoomPressed = false;
             isUnzoomPressed = true;
+        }
+        if (key == 'r' || key == 'R') {
+            settings();
         }
     }
 
