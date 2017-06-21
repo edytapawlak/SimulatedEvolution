@@ -9,6 +9,9 @@ Evolutionary algorithm based on Conrad Barski's book „_Land of Lisp_” and A.
 
 ## Controls
 +/- - zoom in/out,
+
 LMB - place forest,
+
 RMB - place animal,
+
 r - reset world.
