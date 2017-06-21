@@ -5,8 +5,6 @@ Evolutionary algorithm based on Conrad Barski's book „_Land of Lisp_” and A.
 
 (The red ones has cannibalistic behavior. Click the animation to view full youtube demo)
 
-![alt tag](https://github.com/rszczers/SimulatedEvolution/blob/master/evolution.png)
-
 ## Controls
 <pre>
 +/- - zoom in/out,
@@ -14,3 +12,7 @@ LMB - place forest,
 RMB - place animal,
 R - reset world.
 </pre>
+
+![alt tag](https://github.com/rszczers/SimulatedEvolution/blob/master/evolution.png)
+
+
