@@ -8,10 +8,7 @@ Evolutionary algorithm based on Conrad Barski's book „_Land of Lisp_” and A.
 ![alt tag](https://github.com/rszczers/SimulatedEvolution/blob/master/evolution.png)
 
 ## Controls
-+/- - zoom in/out,
-
-LMB - place forest,
-
-RMB - place animal,
-
-r - reset world.
+* +/- - zoom in/out,
+* LMB - place forest,
+* RMB - place animal,
+* r - reset world.
