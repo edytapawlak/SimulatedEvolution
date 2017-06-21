@@ -16,8 +16,8 @@ public class Main extends PApplet {
     private PopulationPlot popCountPlot;
     private World world;
     private int WORLD_SIZE = 400;
-    private int width = 640;
-    private int height = 480;
+    private int width = 800;
+    private int height = 600;
 
     private int xCoord;
     private int yCoord;

@@ -3,9 +3,6 @@ import processing.core.PApplet;
 import java.util.Arrays;
 import java.util.Collections;
 
-/**
- * Created by szpirala on 18.05.17.
- */
 public class GensPlot {
 
     /**
