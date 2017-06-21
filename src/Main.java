@@ -63,7 +63,7 @@ public class Main extends PApplet {
 //                        (float)height / (float)WORLD_SIZE), 1.0f);
         yScale = xScale;
         noCursor();
-        frame.setTitle("Simulated Evolution");
+        surface.setTitle("Simulated Evolution");
     }
 
 

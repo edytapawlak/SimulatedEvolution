@@ -1,6 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="jar" name="SimulatedEvolution">
-    <output-path>$PROJECT_DIR$/out/artifacts/SimulatedEvolution</output-path>
-    <root id="archive" name="SimulatedEvolution.jar" />
-  </artifact>
-</component>
