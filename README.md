@@ -15,7 +15,7 @@ R - reset world.
 
 ![alt tag](https://github.com/rszczers/SimulatedEvolution/blob/master/evolution.png)
 
-## Usage
+## How to run
 In project directory run
 <pre>
 java -jar bin/SimulatedEvolution.jar
