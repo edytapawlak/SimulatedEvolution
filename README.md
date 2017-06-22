@@ -13,11 +13,10 @@ RMB - place animal,
 R - reset world.
 </pre>
 
-![alt tag](https://github.com/rszczers/SimulatedEvolution/blob/master/evolution.png)
-
 ## Usage
 In project directory run
 <pre>
 java -jar bin/SimulatedEvolution.jar
 </pre>
 
+![alt tag](https://github.com/rszczers/SimulatedEvolution/blob/master/evolution.png)
