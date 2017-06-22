@@ -19,4 +19,6 @@ In project directory run
 java -jar bin/SimulatedEvolution.jar
 </pre>
 
-![alt tag](https://github.com/rszczers/SimulatedEvolution/blob/master/evolution.png)
+## Preview 
+
+![](https://github.com/rszczers/SimulatedEvolution/blob/master/evolution.png)
