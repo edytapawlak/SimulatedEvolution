@@ -15,4 +15,8 @@ R - reset world.
 
 ![alt tag](https://github.com/rszczers/SimulatedEvolution/blob/master/evolution.png)
 
+## Usage
+<pre>
+java -jar bin/SimulatedEvolution.jar
+</pre>
 
