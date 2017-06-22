@@ -1,6 +1,6 @@
 <component name="ArtifactManager">
   <artifact type="jar" name="SimulatedEvolution:jar">
-    <output-path>$PROJECT_DIR$/out/artifacts/SimulatedEvolution_jar</output-path>
+    <output-path>$PROJECT_DIR$/bin</output-path>
     <root id="archive" name="SimulatedEvolution.jar">
       <element id="module-output" name="SimulatedEvolution" />
       <element id="extracted-dir" path="$USER_HOME$/Tools/processing-3.3/core/library/core.jar" path-in-jar="/" />
