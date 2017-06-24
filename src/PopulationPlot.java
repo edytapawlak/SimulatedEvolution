@@ -1,9 +1,5 @@
-import com.sun.org.apache.bcel.internal.generic.POP;
 import processing.core.PApplet;
 
-/**
- * Created by szpirala on 20.05.17.
- */
 public class PopulationPlot {
 
     private World world;

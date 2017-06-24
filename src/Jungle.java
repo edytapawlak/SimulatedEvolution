@@ -1,8 +1,5 @@
 import java.util.Random;
 
-/**
- * Created by szpirala on 20.05.17.
- */
 public class Jungle {
 
     /**

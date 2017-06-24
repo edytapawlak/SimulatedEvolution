@@ -1,6 +1,3 @@
-/**
- * Created by szpirala on 18.05.17.
- */
 public class Plant {
     private int x;
     private int y;

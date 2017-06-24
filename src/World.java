@@ -3,9 +3,6 @@ import processing.core.PGraphics;
 
 import java.util.*;
 
-/**
- * Created by szpirala on 20.05.17.
- */
 public class World {
 
     private PApplet context;

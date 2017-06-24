@@ -16,8 +16,8 @@ public class Main extends PApplet {
     private PopulationPlot popCountPlot;
     private World world;
     private int WORLD_SIZE = 400;
-    private int width = 640;
-    private int height = 480;
+    private int width = 800;
+    private int height = 600;
 
     private int xCoord;
     private int yCoord;
@@ -63,7 +63,7 @@ public class Main extends PApplet {
 //                        (float)height / (float)WORLD_SIZE), 1.0f);
         yScale = xScale;
         noCursor();
-        frame.setTitle("Simulated Evolution");
+        surface.setTitle("Simulated Evolution");
     }
 
 
